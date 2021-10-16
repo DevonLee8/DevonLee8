@@ -1,0 +1,16 @@
+import urllib.request, urllib.parse, urllib.error
+from bs4 import BeautifulSoup
+
+import re
+
+
+fhand = urllib.request.urlopen('http://py4e-data.dr-chuck.net/comments_1372937.html')
+sum = 0
+for line in fhand:
+    line = line.decode().strip()
+    if re.search('<span\s\S+>', line):
+        comments = re.findall('<span\s\S+>([0-9.]+)', line)
+        for count in comments:
+            comments = int(count)
+            sum = sum + comments
+print(sum)

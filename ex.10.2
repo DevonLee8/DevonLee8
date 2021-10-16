@@ -1,0 +1,17 @@
+name = input("Enter file:")
+if len(name) < 1:
+    name = "mbox-short.txt"
+handle = open(name)
+hr = dict()
+for line in handle:
+    line = line.rstrip()
+    if line.startswith('From'):
+        if line.startswith('From:'):
+            continue
+        else:
+            seg = line.split()
+            time = seg[5].split(":")
+            h = time[0]
+            hr[h] = hr.get(h,0) + 1
+for k,v in sorted(hr.items()):
+    print(k,v)

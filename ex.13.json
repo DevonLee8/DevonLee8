@@ -1,0 +1,27 @@
+import urllib.request, urllib.parse, urllib.error
+import json
+import re
+
+url = input('Enter JSON link: ')
+print('Retrieving', url)
+uh = urllib.request.urlopen(url)
+data = uh.read().decode()
+print('Retrieved', len(data), 'characters')
+
+try:
+    js = json.loads(data)
+except:
+    js = None
+
+#print(json.dumps(js, indent=4))
+
+sum = 0
+num = 0
+v = list()
+for k,v in js.items():
+    if k == 'comments':
+          for item in v:
+              count = js['comments'][num]['count']
+              sum = sum + count
+              num = num + 1
+print(sum)

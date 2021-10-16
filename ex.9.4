@@ -1,0 +1,21 @@
+name = input("Enter file:")
+if len(name) < 1:
+    name = "mbox-short.txt"
+handle = open(name)
+em = dict()
+for line in handle:
+    line = line.rstrip()
+    if line.startswith('From'):
+        if line.startswith('From:'):
+            continue
+        else:
+            sub = line.split()
+            addr = sub[1]
+            em[addr] = em.get(addr,0) + 1
+bigk = None
+bigv = None
+for k,v in em.items():
+    if bigv is None or v > bigv:
+        bigk = k
+        bigv = v
+print(bigk, bigv)
